@@ -5,9 +5,18 @@ void setup() {
 }
 
 void draw() {
-  stroke(255);
-  for( int i = 0; i < 1000; ++i ) {
-    point( random(400), random(400) );
+  resetFrame();
+  generateRandomNoise( color( 255, 255, 255 ), 5000 );
+  generateRandomNoise( color( 255, 0, 0 ), 5000 );
+}
+
+void generateRandomNoise( color c, int noPoints ) {
+  stroke(c);
+  for( int i = 0; i < noPoints; ++i ) {
+    point( random(width), random(height) );
   }
 }
 
+void resetFrame() {
+  background(0);
+}
