@@ -17,6 +17,12 @@ void generateRandomNoise( color c, int noPoints ) {
   }
 }
 
+void emptyCircle( float x, float y, float radius, color strokeColor ) {
+  fill(0, 0);
+  stroke(strokeColor);
+  ellipse(x, y, radius, radius);
+}
+
 void resetFrame() {
   background(0);
 }
