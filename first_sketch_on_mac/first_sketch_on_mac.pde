@@ -1,10 +1,11 @@
 
+Circle circles[] = new Circle[10];
+
 void setup() {
   size(400, 400);
   background(0);
-  Circle circles[10] = new Circle[];
   for( int i = 0; i < 10; ++i ) {
-    Circle[i] = new Circle( random(width), random(height), random(width/2), color( 255, 255, 255 ) );
+    circles[i] = new Circle( random(width), random(height), random(width/2), color( 255, 255, 255 ) );
   }
 }
 
