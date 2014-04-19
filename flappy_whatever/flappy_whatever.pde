@@ -8,20 +8,14 @@ float birdY;
 float pipeX;
 float pipeWidth;
 
+float safeY;
+float safeHeight;
+
 void setup() {
   size(800, 400);
   setupBird();
   setupWorld();
   setupPipe();
-}
-
-void draw() {
-  refreshCanvas();
-  drawBird();
-  drawPipe();
-  updateBird();
-  updatePipe();
-  handleKeyPress();
 }
 
 void setupBird() {
@@ -32,11 +26,22 @@ void setupBird() {
 void setupPipe() {
   pipeX = width;
   pipeWidth = 40.0;
+  safeHeight = random( 60, 100 );
+  safeY = random( 10, height - safeHeight - 10.0 );
 }
 
 void setupWorld() {
   FORCE_VERTICAL = 2.0;
-  GRAVITY_ACCELERATION_Y = 0.1;
+  GRAVITY_ACCELERATION_Y = 0.2;
+}
+
+void draw() {
+  refreshCanvas();
+  drawPipe();
+  updatePipe();
+  drawBird();
+  updateBird();
+  handleKeyPress();
 }
 
 void drawBird() {
@@ -53,6 +58,8 @@ void drawPipe() {
   stroke(0);
   fill( 200, 255, 130 );
   rect( pipeX, 0.0, pipeWidth, height );
+  fill(0);
+  rect( pipeX, safeY, pipeWidth, safeHeight );
 }
 
 void updatePipe() {
@@ -63,7 +70,13 @@ void updatePipe() {
 void refreshPipePosition() {
   if( pipeX + pipeWidth < 0.0 ) {
     pipeX = width;
+    resetHolePosition();
   }
+}
+
+void resetHolePosition() {
+  safeHeight = random( 60, 100 );
+  safeY = random( 10, height - safeHeight - 10.0 );
 }
 
 void applyGravity() {
@@ -83,7 +96,7 @@ void handleKeyPress() {
 
 void handleSpacePressed() {
   if ( key == ' ' ) {
-    FORCE_VERTICAL = -5.0;
+    FORCE_VERTICAL = -3.0;
   }
 }
 
