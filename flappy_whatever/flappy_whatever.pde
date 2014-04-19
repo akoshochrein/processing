@@ -15,6 +15,15 @@ void setup() {
   setupPipe();
 }
 
+void draw() {
+  refreshCanvas();
+  drawBird();
+  drawPipe();
+  updateBird();
+  updatePipe();
+  handleKeyPress();
+}
+
 void setupBird() {
   birdX = width/2;
   birdY = height/2;
@@ -48,6 +57,13 @@ void drawPipe() {
 
 void updatePipe() {
   pipeX -= 2.0;
+  refreshPipePosition();
+}
+
+void refreshPipePosition() {
+  if( pipeX + pipeWidth < 0.0 ) {
+    pipeX = width;
+  }
 }
 
 void applyGravity() {
@@ -57,15 +73,6 @@ void applyGravity() {
 
 void refreshCanvas() {
   background(0);
-}
-
-void draw() {
-  refreshCanvas();
-  drawBird();
-  drawPipe();
-  updateBird();
-  updatePipe();
-  handleKeyPress();
 }
 
 void handleKeyPress() {
