@@ -42,6 +42,7 @@ void draw() {
   drawBird();
   updateBird();
   handleKeyPress();
+  checkForGameOver();
 }
 
 void drawBird() {
@@ -98,5 +99,17 @@ void handleSpacePressed() {
   if ( key == ' ' ) {
     FORCE_VERTICAL = -3.0;
   }
+}
+
+void checkForGameOver() {
+  if( isBirdOnBottomOfScreen() ) {
+    setupBird();
+    setupPipe();
+    setupWorld();
+  }
+}
+
+boolean isBirdOnBottomOfScreen() {
+  return birdY > height;
 }
 
