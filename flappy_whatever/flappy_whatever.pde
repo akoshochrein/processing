@@ -19,7 +19,7 @@ void setup() {
 }
 
 void setupBird() {
-  birdX = width/2;
+  birdX = width/4;
   birdY = height/2;
 }
 
@@ -102,7 +102,8 @@ void handleSpacePressed() {
 }
 
 void checkForGameOver() {
-  if( isBirdOnBottomOfScreen() ) {
+  if( isBirdOnBottomOfScreen() || 
+      isBirdAndPipeCollided() ) {
     setupBird();
     setupPipe();
     setupWorld();
@@ -111,5 +112,20 @@ void checkForGameOver() {
 
 boolean isBirdOnBottomOfScreen() {
   return birdY > height;
+}
+
+boolean isBirdAndPipeCollided() {
+  if( isBirdAndPipeAligned() && !isBirdInTheGap() ) {
+    return true;
+  }
+  return false;
+}
+
+boolean isBirdAndPipeAligned() {
+  return birdX + 20.0 > pipeX && birdX - 20.0 < pipeX + pipeWidth; 
+}
+
+boolean isBirdInTheGap() {
+  return birdY > safeY && birdY < safeY + safeHeight;
 }
 
