@@ -1,4 +1,7 @@
 
+int maxScore;
+int currentScore;
+
 float FORCE_VERTICAL;
 float GRAVITY_ACCELERATION_Y;
 
@@ -12,7 +15,17 @@ float safeY;
 float safeHeight;
 
 void setup() {
-  size(800, 400);
+  size(400, 400);
+  setupScore();
+  setupAllTheStuff();
+}
+
+void setupScore() {
+  maxScore = 0;
+  currentScore = 0;
+}
+
+void setupAllTheStuff() {
   setupBird();
   setupWorld();
   setupPipe();
@@ -37,12 +50,26 @@ void setupWorld() {
 
 void draw() {
   refreshCanvas();
-  drawPipe();
-  updatePipe();
-  drawBird();
-  updateBird();
+  drawObjects();
+  drawText();
+  updateObjects();
   handleKeyPress();
   checkForGameOver();
+}
+
+void drawObjects() {
+  drawPipe();
+  drawBird();
+}
+
+void drawText() {
+  fill(255);
+  text(str(currentScore), width * 3 / 4, height * 4 / 5 );
+}
+
+void updateObjects() {
+  updatePipe();
+  updateBird();
 }
 
 void drawBird() {
@@ -72,6 +99,10 @@ void refreshPipePosition() {
   if( pipeX + pipeWidth < 0.0 ) {
     pipeX = width;
     resetHolePosition();
+  }
+  if( pipeX + pipeWidth == birdX ) {
+    currentScore++;
+    maxScore = maxScore > currentScore ? maxScore : currentScore;
   }
 }
 
@@ -104,9 +135,8 @@ void handleSpacePressed() {
 void checkForGameOver() {
   if( isBirdOnBottomOfScreen() || 
       isBirdAndPipeCollided() ) {
-    setupBird();
-    setupPipe();
-    setupWorld();
+    setupAllTheStuff();
+    currentScore = 0;
   }
 }
 
