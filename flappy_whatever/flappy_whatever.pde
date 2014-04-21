@@ -51,35 +51,19 @@ void setupWorld() {
 void draw() {
   refreshCanvas();
   drawObjects();
-  drawText();
+  drawScore();
   updateObjects();
   handleKeyPress();
   checkForGameOver();
 }
 
+void refreshCanvas() {
+  background(0);
+}
+
 void drawObjects() {
   drawPipe();
   drawBird();
-}
-
-void drawText() {
-  fill(255);
-  text(str(currentScore), width * 3 / 4, height * 4 / 5 );
-}
-
-void updateObjects() {
-  updatePipe();
-  updateBird();
-}
-
-void drawBird() {
-  fill(0, 0);
-  stroke(255, 140, 0);
-  ellipse( birdX, birdY, 20, 20 );
-}
-
-void updateBird() {
-  applyGravity();
 }
 
 void drawPipe() {
@@ -88,6 +72,23 @@ void drawPipe() {
   rect( pipeX, 0.0, pipeWidth, height );
   fill(0);
   rect( pipeX, safeY, pipeWidth, safeHeight );
+}
+
+void drawBird() {
+  fill(0, 0);
+  stroke(255, 140, 0);
+  ellipse( birdX, birdY, 20, 20 );
+}
+
+void drawScore() {
+  fill(255);
+  text(str(currentScore) + "/" + str(maxScore),
+       width * 3 / 4, height * 4 / 5 );
+}
+
+void updateObjects() {
+  updatePipe();
+  updateBird();
 }
 
 void updatePipe() {
@@ -100,10 +101,7 @@ void refreshPipePosition() {
     pipeX = width;
     resetHolePosition();
   }
-  if( pipeX + pipeWidth == birdX ) {
-    currentScore++;
-    maxScore = maxScore > currentScore ? maxScore : currentScore;
-  }
+  checkAndIncrementScore();
 }
 
 void resetHolePosition() {
@@ -111,13 +109,20 @@ void resetHolePosition() {
   safeY = random( 10, height - safeHeight - 10.0 );
 }
 
+void checkAndIncrementScore() {
+  if( pipeX + pipeWidth == birdX ) {
+    currentScore++;
+    maxScore = maxScore > currentScore ? maxScore : currentScore;
+  }
+}
+
+void updateBird() {
+  applyGravity();
+}
+
 void applyGravity() {
   birdY += FORCE_VERTICAL;
   FORCE_VERTICAL += GRAVITY_ACCELERATION_Y;
-}
-
-void refreshCanvas() {
-  background(0);
 }
 
 void handleKeyPress() {
