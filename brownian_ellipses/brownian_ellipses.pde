@@ -1,14 +1,21 @@
 
 PVector[] circleCenters;
 
+float centerDistanceFromCorners;
+
 void setup() {
-  size(400,400);
+  size(800,800);
   setupCircles();
   smooth();
+  centerDistanceFromCorners = getCenterDistanceFromCorners();
+}
+
+float getCenterDistanceFromCorners() {
+  return sqrt( pow(width, 2) + pow(height, 2) )/2; 
 }
 
 void setupCircles() {
-  circleCenters = new PVector[30];
+  circleCenters = new PVector[1000];
   for( int i = 0; i < circleCenters.length; ++i ) {
     circleCenters[i] = new PVector(width/2, height/2);
   }
@@ -27,15 +34,26 @@ void updateBackground() {
 
 void drawCircles() {
   for( int i = 0; i < circleCenters.length; ++i ) {
-    fill(255);
     noStroke();
+    getFillByDistanceFromCenter(circleCenters[i]);
     ellipse(circleCenters[i].x, circleCenters[i].y, random(10,30), random(10,30));
   } 
 }
 
+void getFillByDistanceFromCenter( PVector v ) {
+  float distanceFromCenter = getDistanceFromCenter( v );
+  float greenScale = distanceFromCenter/centerDistanceFromCorners * 255;
+  fill(255, greenScale, 0);
+}
+
+float getDistanceFromCenter( PVector v ) {
+  return sqrt( pow(v.x - width/2, 2) + pow(v.y - height/2, 2) );
+}
+
 void updateCircles() {
   for( int i = 0; i < circleCenters.length; ++i ) {
-    circleCenters[i].x = circleCenters[i].x + random(8) - 4;
-    circleCenters[i].y = circleCenters[i].y + random(8) - 4;
+    circleCenters[i].x = circleCenters[i].x + random(16) - 8;
+    circleCenters[i].y = circleCenters[i].y + random(16) - 8;
   }
 }
+
