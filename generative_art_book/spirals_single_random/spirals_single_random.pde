@@ -11,10 +11,12 @@ noFill();
 ellipse(centX, centY, radius*2, radius*2);
 
 stroke(20, 50, 70);
+radius = 10;
 float x, y;
 float lastX = -999;
 float lastY = -999;
-for( float ang = 0; ang <= 360; ang += 5 ) {
+for( float ang = 0; ang <= 1440; ang += 5 ) {
+  radius += 0.5;
   float rad = radians(ang);
   x = centX + radius * cos(rad);
   y = centY + radius * sin(rad);
