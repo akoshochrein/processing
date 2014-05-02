@@ -1,4 +1,4 @@
-size(500, 300);
+size(800, 800);
 background(255);
 strokeWeight(0.5);
 smooth();
@@ -6,14 +6,14 @@ smooth();
 int centX = 250;
 int centY = 150;
 
-stroke(20, 50, 70);
 float x, y;  
 for( int i = 0; i < 100; ++i ) {
+  stroke(random(200), random(200), random(255), 80);
   float radius = 10;
   float lastX = -999;
   float lastY = -999;
   float radiusNoise = random(10);
-  for( float ang = 0; ang <= random(1440,2400); ang += 5 ) {
+  for( float ang = random(1000); ang <= random(1440,2400); ang += 1 ) {
     radiusNoise += 0.05;
     radius += 0.5;
     float thisRadius = radius + (noise(radiusNoise)*200)-100;
