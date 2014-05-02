@@ -7,6 +7,7 @@ void setup() {
   size(800, 800);
   smooth();  
   drawManySpirals(NO_SPIRALS);
+  saveFrame("screen-####.jpg");
 }
 
 void drawManySpirals( int numberOfSpirals ) { 
@@ -34,8 +35,10 @@ void drawSpiral() {
   float prev_y = height/2;
 
   for ( int i = 0; i < 360*NO_LOOPS_PER_SPIRAL; i += 3 ) {
-    float x = width/2 + i*0.1*cos(radians(i));
-    float y = height/2 + i*0.1*sin(radians(i));
+    
+    float thisRadius = i * 0.1 * noise(random(1)/5);
+    float x = width/2 + thisRadius*cos(radians(i));
+    float y = height/2 + thisRadius*sin(radians(i));
     line(prev_x, prev_y, x, y);
     prev_x = x;
     prev_y = y;

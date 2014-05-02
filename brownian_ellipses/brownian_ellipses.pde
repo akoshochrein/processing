@@ -52,8 +52,8 @@ float getDistanceFromCenter( PVector v ) {
 
 void updateCircles() {
   for( int i = 0; i < circleCenters.length; ++i ) {
-    circleCenters[i].x = circleCenters[i].x + noise(circleCenter[i].x)*16 - 8;
-    circleCenters[i].y = circleCenters[i].y + noise(circleCenter[i].x)*16 - 8;
+    circleCenters[i].x = circleCenters[i].x + random(1)*16 - 8;
+    circleCenters[i].y = circleCenters[i].y + random(1)*16 - 8;
   }
 }
 
