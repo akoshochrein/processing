@@ -5,11 +5,10 @@ int numberOfSquares = 10;
 boolean inverse = false;
 
 void setup() {
-  size(800, 800);
+  size(500, 500);
   
   noStroke();
   fill(#000000);
-  rectMode(CENTER);
   squareSize = width / numberOfSquares;
 }
 
@@ -27,7 +26,7 @@ void drawGrid() {
       pushMatrix();
       translate(centerX, centerY);
       scale(distance / width);
-      rect(0, 0, squareSize, squareSize);
+      rect(centerX, centerY, squareSize, squareSize);
       popMatrix();
     }
   }
