@@ -7,7 +7,7 @@ float _strokeColor = 254;
 int _strokeChange = -1;
 
 void setup() {
-  size(500, 300);
+  size(800, 600);
   smooth();
   frameRate(30);
   background(255);
@@ -22,7 +22,7 @@ void setup() {
 void draw() {
   
   _radiusNoise += 0.005;
-  _radius = noise(_radiusNoise)*550 + 1;
+  _radius = noise(_radiusNoise)*1000 + 1;
   
   _angNoise += 0.005;
   _angle += noise(_angNoise)*6 - 3;
@@ -50,5 +50,6 @@ void draw() {
   
   stroke(_strokeColor, 60);
   strokeWeight(1);
-  line(x1, y1, x2, y2);
+  //line(x1, y1, x2, y2);
+  bezier(0, 0, x1, y1, x2, y2, width, height);
 }
