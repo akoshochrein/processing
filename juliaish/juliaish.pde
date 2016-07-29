@@ -2,15 +2,19 @@ float TOP_TRESHOLD = 1.0f;
 float BOTTOM_TRESHOLD = -1.0f;
 
 void setup () {
-  size(500, 400);
+  size(1024, 768);
+  colorMode(HSB, 100);
   
   // Do the Julia shenanigans
   int[][] iterationMatrix = new int[width][height];
   for (int c = 0; c < width; ++c) {
     for (int r = 0; r < height; ++r) {
-      float x = map(c, 0, width, -1, 1);
-      float y = map(r, 0, height, -1, 1);
-      iterationMatrix[c][r] = doJulia(new Complex(x, y));
+      iterationMatrix[c][r] = doJulia(
+        new Complex(
+          map(c, 0, width, -1, 1),
+          map(r, 0, height, -1, 1)
+        )
+      );
     }
   }
   
@@ -28,7 +32,9 @@ void setup () {
   for (int c = 0; c < width; ++c) {
     for (int r = 0; r < height; ++r) {
       stroke(
-        map(iterationMatrix[c][r], minJuliaValue, maxJuliaValue, 0, 255)
+        map(iterationMatrix[c][r], minJuliaValue, maxJuliaValue, 0, 255),
+        map(iterationMatrix[c][r], minJuliaValue, maxJuliaValue, 255, 0),
+        100
       );
       point(c, r);
     }
